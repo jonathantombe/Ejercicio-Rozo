@@ -1,11 +1,11 @@
 import React from 'react'
-import LogoImg from '../assets/descarga.jpg'
+import bart from '../assets/descarga.jpg'
 
-export const ComponentCard = ({LogoImg, nameCharacter,quoteCharacter}) => {
+export const ComponentCard = ({ imgCharacter, nameCharacter,quoteCharacter}) => {
   return (
       <div>
           <h1>Welcome</h1>
-          <img src={LogoImg} alt="" />
+          <img src={imgCharacter} alt="" />
           <h2>{nameCharacter}</h2>
           <p>{ quoteCharacter}</p>
     </div>
