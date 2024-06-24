@@ -1,35 +1,43 @@
+import { useState } from 'react';
+import './App.css';
+import { ComponentCard } from './components/ComponentCard';
 
-import { useState } from 'react'
-import './App.css'
-import { ComponentCard } from './components/ComponentCard'
-const URL = 'https://thesimpsonsquoteapi.glitch.me/quotes'
-import bart from './assets/descarga.jpg'
+const URL = 'https://rickandmortyapi.com/api/character';
 
 function App() {
-
-  const [nameCharacter, setNameCharacter] = useState('Bart')
-  const [imgCharacter, setImgCharacter] = useState(bart)
-  const [quoteCharacter, setQuoteCharacter] = useState('¡Ay caramba!')
+  const [characters, setCharacters] = useState([]);
 
   const handleGetApi = async () => {
-    const response = await fetch(URL)
-    const data = await response.json()
-
-    setNameCharacter(data[0].character)
-    setQuoteCharacter(data[0].quote)
-    setImgCharacter(data[0].image)
-  }
+    const response = await fetch(URL);
+    const data = await response.json();
+    setCharacters(data.results);
+  };
 
   return (
-    <>
-      <ComponentCard
-        nameCharacter={nameCharacter}
-        imgCharacter={imgCharacter}
-        quoteCharacter={quoteCharacter}
-      />
-      <button onClick={handleGetApi}>Generar Personaje</button>
-    </>
-  )
+    <div className="container mx-auto">
+      <div className="flex justify-center my-4">
+        <h1 className='text-3xl font-bold '>rick and morty api</h1>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-4 rounded"
+          onClick={handleGetApi}
+        >
+          Generar Personajes
+        </button>
+      </div>
+      <div className="flex flex-wrap justify-center">
+        {characters.map((character) => (
+          <ComponentCard
+            key={character.id}
+            nameCharacter={character.name}
+            imgCharacter={character.image}
+            quoteCharacter={`Status: ${character.status}, Species: ${character.species}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
